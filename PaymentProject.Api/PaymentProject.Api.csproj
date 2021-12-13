@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\PaymentProject.Core\PaymentProject.Core.csproj" />
+      <ProjectReference Include="..\PaymentProject.Infrastructure\PaymentProject.Infrastructure.csproj" />
+      <ProjectReference Include="..\PaymentProject.SharedKernel\PaymentProject.SharedKernel.csproj" />
+    </ItemGroup>
+
+</Project>
