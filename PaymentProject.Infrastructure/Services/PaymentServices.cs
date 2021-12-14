@@ -17,14 +17,24 @@ public class PaymentServices : IPaymentService
 
     public PaymentOutputDto Add(PaymentInputDto inputDto)
     {
-        _paymentRepository.Add(new Payment()
+        Payment payment = new()
         {
+            Amount = inputDto.Amount,
+            Status = inputDto.Status,
+            CreationDate = DateTime.Now,
+            Order = new Order()
+            {
+                ConsumerAddress = inputDto.ConsumerAddress,
+                ConsumerFullName = inputDto.ConsumerFullName
+            }
+        };
 
-        });
-        _unitOfWork.Save();
+        _paymentRepository.Add(payment);
+        _unitOfWork.SaveChangesAsync();
+        
         return new PaymentOutputDto()
         {
-
+            Id = payment.Id
         };
     }
 }

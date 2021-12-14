@@ -1,11 +1,19 @@
 using PaymentProject.Core.Interfaces;
+using PaymentProject.Infrastructure.Data;
 
 namespace PaymentProject.Infrastructure;
 
 public class UnitOfWork : IUnitOfWork
 {
-    public void Save()
+    private readonly PaymentDbContext _paymentDbContext;
+
+    public UnitOfWork(PaymentDbContext paymentDbContext)
     {
-        throw new NotImplementedException();
+        _paymentDbContext = paymentDbContext;
+    }
+
+    public async void SaveChangesAsync()
+    {
+        await _paymentDbContext.SaveChangesAsync();
     }
 }
