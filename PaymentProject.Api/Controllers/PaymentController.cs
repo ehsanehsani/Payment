@@ -5,7 +5,7 @@ using PaymentProject.Core.Interfaces;
 namespace PaymentProject.Api.Controllers;
 
 [ApiController]
-[Route("Payment")]
+[Route("Payments")]
 public class PaymentController : ControllerBase
 {
     private readonly IPaymentService _paymentService;
@@ -16,9 +16,24 @@ public class PaymentController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<PaymentOutputDto> Post([FromBody] PaymentInputDto inputDto)
+    public async Task<int> Post([FromBody] PaymentInputDto inputDto)
     {
         var result = await _paymentService.AddAsync(inputDto);
+        return result;
+    }
+
+    [HttpGet]
+    [Route("{id}")]
+    public async Task<PaymentOutputDto> Get(int id)
+    {
+        var result = await _paymentService.GetById(id);
+        return result;
+    }
+
+    [HttpGet]
+    public async Task<IEnumerable<PaymentOutputDto>> Get()
+    {
+        var result = await _paymentService.GetAll();
         return result;
     }
 }
