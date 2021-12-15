@@ -6,7 +6,7 @@ namespace PaymentProject.Api.Controllers;
 
 [ApiController]
 [Route("Payment")]
-public class PaymentController  : ControllerBase
+public class PaymentController : ControllerBase
 {
     private readonly IPaymentService _paymentService;
 
@@ -16,9 +16,9 @@ public class PaymentController  : ControllerBase
     }
 
     [HttpPost]
-    public PaymentOutputDto Post([FromBody] PaymentInputDto inputDto)
+    public async Task<PaymentOutputDto> Post([FromBody] PaymentInputDto inputDto)
     {
-        var result= _paymentService.Add(inputDto);
+        var result = await _paymentService.AddAsync(inputDto);
         return result;
     }
 }

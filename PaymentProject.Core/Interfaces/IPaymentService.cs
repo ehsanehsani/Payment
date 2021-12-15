@@ -4,5 +4,5 @@ namespace PaymentProject.Core.Interfaces;
 
 public interface IPaymentService
 {
-    PaymentOutputDto Add(PaymentInputDto inputDto);
+    Task<PaymentOutputDto> AddAsync(PaymentInputDto inputDto);
 }
