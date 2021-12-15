@@ -1,6 +1,7 @@
 using PaymentProject.Core.Data;
 using PaymentProject.Core.Dto;
 using PaymentProject.Core.Interfaces;
+using PaymentProject.Infrastructure.Guards;
 
 namespace PaymentProject.Infrastructure.Services;
 
@@ -15,8 +16,9 @@ public class PaymentServices : IPaymentService
         _unitOfWork = unitOfWork;
     }
 
-    public PaymentOutputDto Add(PaymentInputDto inputDto)
+    public async Task<PaymentOutputDto> AddAsync(PaymentInputDto inputDto)
     {
+        GuardClauses.IsMoreThan(0,inputDto.Amount,nameof(inputDto.Amount));
         Payment payment = new()
         {
             Amount = inputDto.Amount,
@@ -30,8 +32,8 @@ public class PaymentServices : IPaymentService
         };
 
         _paymentRepository.Add(payment);
-        _unitOfWork.SaveChangesAsync();
-        
+        await _unitOfWork.SaveChangesAsync();
+
         return new PaymentOutputDto()
         {
             Id = payment.Id
