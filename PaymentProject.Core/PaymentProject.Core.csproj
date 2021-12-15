@@ -10,4 +10,8 @@
       <ProjectReference Include="..\PaymentProject.SharedKernel\PaymentProject.SharedKernel.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Exceptions" />
+    </ItemGroup>
+
 </Project>
