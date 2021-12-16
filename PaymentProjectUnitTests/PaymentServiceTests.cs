@@ -20,7 +20,10 @@ public class PaymentServiceTests
         var paymentService = new PaymentServices(paymentRepositoryMock, unitOfWorkStub);
 
         //act
-        await paymentService.AddAsync(new PaymentInputDto());
+        await paymentService.AddAsync(new PaymentInputDto()
+        {
+            Amount = 100
+        });
 
         //assert
         paymentRepositoryMock.ReceivedWithAnyArgs().Add(default);
@@ -35,7 +38,10 @@ public class PaymentServiceTests
         var paymentService = new PaymentServices(paymentRepositoryStub, unitOfWorkMock);
 
         //act
-        await paymentService.AddAsync(new PaymentInputDto());
+        await paymentService.AddAsync(new PaymentInputDto()
+        {
+            Amount = 100
+        });
 
         //assert
         await unitOfWorkMock.ReceivedWithAnyArgs().SaveChangesAsync();
