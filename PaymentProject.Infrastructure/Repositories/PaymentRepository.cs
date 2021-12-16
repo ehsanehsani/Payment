@@ -1,6 +1,5 @@
 using Microsoft.EntityFrameworkCore;
 using PaymentProject.Core.Data;
-using PaymentProject.Core.Dto;
 using PaymentProject.Core.Interfaces;
 using PaymentProject.Infrastructure.Data;
 
@@ -18,5 +17,29 @@ public class PaymentRepository : IPaymentRepository
     public void Add(Payment inputDto)
     {
         _dbContext.Set<Payment>().Add(inputDto);
+    }
+
+    public async Task<Payment> GetById(int id)
+    {
+        var result = await _dbContext.Set<Payment>()
+            .Include(x => x.Order)
+            .Where(x => x.Id == id)
+            .FirstOrDefaultAsync();
+
+        if (result == null)
+        {
+            throw new KeyNotFoundException();
+        }
+
+        return result;
+    }
+
+    public async Task<IEnumerable<Payment>> GetAll()
+    {
+        var result = await _dbContext.Set<Payment>()
+            .Include(x => x.Order)
+            .ToListAsync();
+
+        return result;
     }
 }
